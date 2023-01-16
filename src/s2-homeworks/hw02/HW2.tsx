@@ -16,8 +16,8 @@ import s2 from '../../s1-main/App.module.css'
 * 11 - в файле Affair.tsx отобразить приходящие данные
 * */
 
-
-export type AffairPriorityType = "high" | "low" | "middle"
+// types
+export type AffairPriorityType = 'high' | 'low' | 'middle'
 export type AffairType = {
     _id: number
     name: string
@@ -25,8 +25,8 @@ export type AffairType = {
 }
 export type FilterType = 'all' | AffairPriorityType
 
-
-const defaultAffairs: AffairType[] = [
+// constants
+const defaultAffairs: Array<AffairType> = [
     {_id: 1, name: 'React', priority: 'high'},
     {_id: 2, name: 'anime', priority: 'low'},
     {_id: 3, name: 'games', priority: 'low'},
@@ -34,24 +34,22 @@ const defaultAffairs: AffairType[] = [
     {_id: 5, name: 'html & css', priority: 'middle'},
 ]
 
-
-export const filterAffairs = (affairs: AffairType[], filter: FilterType): AffairType[] => {
-    return filter === "all" ? affairs : affairs.filter(el => el.priority === filter)
-
+// pure helper functions
+export const filterAffairs = (affairs: Array<AffairType>, filter: FilterType): Array<AffairType> => {
+    return filter === 'all' ? affairs : affairs.filter(el => el.priority === filter)
 }
-export const deleteAffair = (affairs: AffairType[], _id: number): AffairType[] => {
 
+export const deleteAffair = (affairs: Array<AffairType>, _id: number): Array<AffairType> => {
     return affairs.filter(el => el._id !== _id)
-
 }
 
 function HW2() {
-    const [affairs, setAffairs] = useState<AffairType[]>(defaultAffairs)
+    const [affairs, setAffairs] = useState<Array<AffairType>>(defaultAffairs)
     const [filter, setFilter] = useState<FilterType>('all')
 
     const filteredAffairs = filterAffairs(affairs, filter)
-    const deleteAffairCallback = (_id: number) => {
 
+    const deleteAffairCallback = (_id: number) => {
         setAffairs(deleteAffair(affairs, _id))
     }
 
@@ -61,9 +59,9 @@ function HW2() {
             <div className={s2.hw}>
                 <Affairs
                     data={filteredAffairs}
-                    filter={filter}
                     setFilter={setFilter}
                     deleteAffairCallback={deleteAffairCallback}
+                    filter={filter}
                 />
             </div>
         </div>
